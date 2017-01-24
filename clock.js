@@ -6,24 +6,29 @@ document.addEventListener('DOMContentLoaded', function () {
   clock.appendChild(minute)
   clock.appendChild(second)
   var degrees = 0
+  var now = new Date()
 
   var secCount = 1
   function secondRotation () {
-    degrees = (secCount / 60) * 360
+    var sec = now.getSeconds()
+    //console.log(sec)
+    degrees = ((sec + secCount) / 60) * 360
     secCount++
     return degrees
   }
 
   var minCount = 1
   function minuteRotation () {
-    degrees = (minCount / 3600) * 360
+    var min = now.getMinutes()
+    degrees = ((min*60 + minCount) / 3600) * 360
     minCount++
     return degrees
   }
 
   var hourCount = 1
   function hourRotation () {
-    degrees = (hourCount / 43200) * 360
+    var hour = now.getHours() % 12
+    degrees = ((hour * 3600 + hourCount) / 43200) * 360
     hourCount++
     return degrees
   }
