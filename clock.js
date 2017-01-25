@@ -9,18 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
   var now = new Date()
 
   var secCount = 1
+  var sec = now.getSeconds()
   function secondRotation () {
-    var sec = now.getSeconds()
-    //console.log(sec)
     degrees = ((sec + secCount) / 60) * 360
     secCount++
     return degrees
   }
 
   var minCount = 1
+  var min = now.getMinutes()
   function minuteRotation () {
-    var min = now.getMinutes()
-    degrees = ((min*60 + minCount) / 3600) * 360
+    degrees = ((sec + min*60 + minCount) / 3600) * 360
+    //console.log('min deg =' + degrees)
     minCount++
     return degrees
   }
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var hourCount = 1
   function hourRotation () {
     var hour = now.getHours() % 12
-    degrees = ((hour * 3600 + hourCount) / 43200) * 360
+    degrees = ((sec + min + hour * 3600 + hourCount) / 43200) * 360
     hourCount++
     return degrees
   }

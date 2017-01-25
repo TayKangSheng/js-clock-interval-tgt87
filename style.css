@@ -1,5 +1,5 @@
 #clock {
-  position: absolute
+  /*position: absolute*/
 }
 
 #clock img {
@@ -7,13 +7,13 @@
 }
 
 #hour {
-  position: absolute
+  /*position: absolute*/
 }
 
 #minute {
-  position: absolute
+  /*position: absolute*/
 }
 
 #second {
-  position: absolute
+  /*position: absolute*/
 }
