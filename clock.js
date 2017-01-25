@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function clock () {
   var clock = document.getElementById('clock')
   var hour = document.getElementById('hour')
   var minute = document.getElementById('minute')
@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   clock.appendChild(second)
   var degrees = 0
   var now = new Date()
-
-  var secCount = 1
+  var secCount = 0
   var sec = now.getSeconds()
   function secondRotation () {
     degrees = ((sec + secCount) / 60) * 360
@@ -16,24 +15,35 @@ document.addEventListener('DOMContentLoaded', function () {
     return degrees
   }
 
-  var minCount = 1
+  var minCount = 0
   var min = now.getMinutes()
   function minuteRotation () {
-    degrees = ((sec + min*60 + minCount) / 3600) * 360
-    //console.log('min deg =' + degrees)
+    degrees = sec / 10 + ((min * 60 + minCount) / 3600) * 360
     minCount++
     return degrees
   }
 
-  var hourCount = 1
+  var hourCount = 0
+  var hr = now.getHours()
   function hourRotation () {
-    var hour = now.getHours() % 12
-    degrees = ((sec + min + hour * 3600 + hourCount) / 43200) * 360
+    if (hr > 12) {
+      hr -= 12
+    } else if (hr === 0) {
+      hr = 12
+    }
+    degrees = min / 2 + ((hr * 3600 + hourCount) / 43200) * 360
     hourCount++
     return degrees
   }
-  setInterval(function () {
-    second.style.transform = 'rotate(' + secondRotation() + 'deg)'
-    minute.style.transform = 'rotate(' + minuteRotation() + 'deg)'
-    hour.style.transform = 'rotate(' + hourRotation() + 'deg)' }, 1000)
+
+  return {
+    display: setInterval(function () {
+      second.style.transform = 'rotate(' + secondRotation() + 'deg)'
+      minute.style.transform = 'rotate(' + minuteRotation() + 'deg)'
+      hour.style.transform = 'rotate(' + hourRotation() + 'deg)' }, 1000)
+  }
+}
+document.addEventListener('DOMContentLoaded', function () {
+  var domClock = clock()
+  domClock.display
 })
